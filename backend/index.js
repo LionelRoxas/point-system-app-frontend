@@ -9,7 +9,9 @@ const crypto = require('crypto');
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'https://lionelroxas.github.io/point-system-app/' // Replace with your actual GitHub Pages URL
+}));
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
