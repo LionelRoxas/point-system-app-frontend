@@ -16,9 +16,11 @@ function App() {
   const [token, setToken] = useState(localStorage.getItem('token') || '');
   const [classCode, setClassCode] = useState(localStorage.getItem('classCode') || '');
 
+  const apiUrl = 'https://point-system-app-backend-1fa18c849427.herokuapp.com/api';
+
   useEffect(() => {
     if (token && classCode) {
-      axios.get('https://point-system-app-backend-1fa18c849427.herokuapp.com', {
+      axios.get(`${apiUrl}/students`, {
         headers: { Authorization: `Bearer ${token}` },
         params: { classCode }
       })
@@ -28,9 +30,9 @@ function App() {
   }, [token, classCode]);
 
   const addPoints = (studentId, points, reason) => {
-    axios.post(`https://point-system-app-backend-1fa18c849427.herokuapp.com/${studentId}/addPoints`, { points, reason, classCode }, {
+    axios.post(`${apiUrl}/students/${studentId}/addPoints`, { points, reason, classCode }, {
       headers: { Authorization: `Bearer ${token}` }
-  })
+    })
     .then(response => setStudents(students.map(student =>
       student._id === studentId ? response.data : student
     )))
@@ -38,7 +40,7 @@ function App() {
   };
 
   const addStudent = (name) => {
-    axios.post(`https://point-system-app-backend-1fa18c849427.herokuapp.com`, { name, points: 0, classCode }, {
+    axios.post(`${apiUrl}/students`, { name, points: 0, classCode }, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(response => setStudents([...students, response.data]))
@@ -46,7 +48,7 @@ function App() {
   };
 
   const removeStudent = (studentId) => {
-    axios.delete(`https://point-system-app-backend-1fa18c849427.herokuapp.com/${studentId}`, {
+    axios.delete(`${apiUrl}/students/${studentId}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(() => setStudents(students.filter(student => student._id !== studentId)))
@@ -58,7 +60,7 @@ function App() {
   };
 
   const handlePasswordSubmit = (email, password) => {
-    axios.post('https://point-system-app-backend-1fa18c849427.herokuapp.com', { email, password })
+    axios.post(`${apiUrl}/login`, { email, password })
       .then(response => {
         setToken(response.data.token);
         localStorage.setItem('token', response.data.token);
@@ -71,7 +73,7 @@ function App() {
   };
 
   const handleRegister = (email, password) => {
-    axios.post('https://point-system-app-backend-1fa18c849427.herokuapp.com', { email, password })
+    axios.post(`${apiUrl}/register`, { email, password })
       .then(response => {
         alert('Registration successful! You can now log in.');
         setShowPasswordPrompt(false);
@@ -85,7 +87,7 @@ function App() {
   };
 
   const handleClassCodeSubmit = (code) => {
-    axios.post('https://point-system-app-backend-1fa18c849427.herokuapp.com', { classCode: code })
+    axios.post(`${apiUrl}/classCode`, { classCode: code })
     .then(response => {
       if (response.data.valid) {
         setClassCode(code);
