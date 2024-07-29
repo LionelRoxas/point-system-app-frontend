@@ -58,7 +58,7 @@ function App() {
   };
 
   const handlePasswordSubmit = (email, password) => {
-    axios.post('https://point-system-app-backend-1fa18c849427.herokuapp.com/login', { email, password })
+    axios.post('https://point-system-app-backend-1fa18c849427.herokuapp.com', { email, password })
       .then(response => {
         setToken(response.data.token);
         localStorage.setItem('token', response.data.token);
@@ -71,7 +71,7 @@ function App() {
   };
 
   const handleRegister = (email, password) => {
-    axios.post('https://point-system-app-backend-1fa18c849427.herokuapp.com/register', { email, password })
+    axios.post('https://point-system-app-backend-1fa18c849427.herokuapp.com', { email, password })
       .then(response => {
         alert('Registration successful! You can now log in.');
         setShowPasswordPrompt(false);
