@@ -30,7 +30,7 @@ function App() {
   }, [token, classCode]);
 
   const addPoints = (studentId, points, reason) => {
-    axios.post(`${apiUrl}/${studentId}/addPoints`, { points, reason, classCode }, {
+    axios.post(`${apiUrl}`, { points, reason, classCode }, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(response => setStudents(students.map(student =>
@@ -48,7 +48,7 @@ function App() {
   };
 
   const removeStudent = (studentId) => {
-    axios.delete(`${apiUrl}/${studentId}`, {
+    axios.delete(`${apiUrl}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(() => setStudents(students.filter(student => student._id !== studentId)))
