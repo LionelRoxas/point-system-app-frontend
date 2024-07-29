@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     if (token && classCode) {
-      axios.get(`${apiUrl}/students`, {
+      axios.get(`${apiUrl}`, {
         headers: { Authorization: `Bearer ${token}` },
         params: { classCode }
       })
@@ -30,7 +30,7 @@ function App() {
   }, [token, classCode]);
 
   const addPoints = (studentId, points, reason) => {
-    axios.post(`${apiUrl}/students/${studentId}/addPoints`, { points, reason, classCode }, {
+    axios.post(`${apiUrl}/${studentId}/addPoints`, { points, reason, classCode }, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(response => setStudents(students.map(student =>
@@ -40,7 +40,7 @@ function App() {
   };
 
   const addStudent = (name) => {
-    axios.post(`${apiUrl}/students`, { name, points: 0, classCode }, {
+    axios.post(`${apiUrl}`, { name, points: 0, classCode }, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(response => setStudents([...students, response.data]))
@@ -48,7 +48,7 @@ function App() {
   };
 
   const removeStudent = (studentId) => {
-    axios.delete(`${apiUrl}/students/${studentId}`, {
+    axios.delete(`${apiUrl}/${studentId}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(() => setStudents(students.filter(student => student._id !== studentId)))
@@ -60,7 +60,7 @@ function App() {
   };
 
   const handlePasswordSubmit = (email, password) => {
-    axios.post(`${apiUrl}/login`, { email, password })
+    axios.post(`${apiUrl}`, { email, password })
       .then(response => {
         setToken(response.data.token);
         localStorage.setItem('token', response.data.token);
@@ -73,7 +73,7 @@ function App() {
   };
 
   const handleRegister = (email, password) => {
-    axios.post(`${apiUrl}/register`, { email, password })
+    axios.post(`${apiUrl}`, { email, password })
       .then(response => {
         alert('Registration successful! You can now log in.');
         setShowPasswordPrompt(false);
@@ -87,7 +87,7 @@ function App() {
   };
 
   const handleClassCodeSubmit = (code) => {
-    axios.post(`${apiUrl}/classCode`, { classCode: code })
+    axios.post(`${apiUrl}`, { classCode: code })
     .then(response => {
       if (response.data.valid) {
         setClassCode(code);
