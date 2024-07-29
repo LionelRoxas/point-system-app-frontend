@@ -144,6 +144,6 @@ app.post('/validateClassCode', async (req, res) => {
 });
 
 app.listen(5000, () => {
-  console.log('Server running at https://point-system-app-backend-1fa18c849427.herokuapp.com'
+  console.log('Server running at https://point-system-app-backend-1fa18c849427.herokuapp.com')
 });
 

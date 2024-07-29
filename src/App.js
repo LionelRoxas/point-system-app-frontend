@@ -16,7 +16,7 @@ function App() {
   const [token, setToken] = useState(localStorage.getItem('token') || '');
   const [classCode, setClassCode] = useState(localStorage.getItem('classCode') || '');
 
-  const apiUrl = 'https://point-system-app-backend-1fa18c849427.herokuapp.com';
+  const apiUrl = 'https://safe-waters-33155-2a901f07b542.herokuapp.com';
 
   useEffect(() => {
     if (token && classCode) {
