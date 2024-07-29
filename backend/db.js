@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/point-system', {
+// Use environment variable for MongoDB URI, fallback to local MongoDB for development
+const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://point-system-app-cluste.dih3acx.mongodb.net/';
+
+mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -8,6 +11,10 @@ mongoose.connect('mongodb://localhost:27017/point-system', {
 const db = mongoose.connection;
 db.once('open', () => {
   console.log('MongoDB connected');
+});
+
+db.on('error', (err) => {
+  console.error('MongoDB connection error:', err);
 });
 
 module.exports = db;
