@@ -10,7 +10,7 @@ const crypto = require('crypto');
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: 'https://lionelroxas.github.io/point-system-app/' // Replace with your actual GitHub Pages URL
+  origin: 'https://lionelroxas.github.io' // Replace with your actual GitHub Pages URL
 }));
 
 const authenticateToken = (req, res, next) => {
@@ -143,7 +143,6 @@ app.post('/validateClassCode', async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
-  console.log('Server running at https://point-system-app-backend-1fa18c849427.herokuapp.com')
-});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
