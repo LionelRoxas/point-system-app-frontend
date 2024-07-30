@@ -15,7 +15,7 @@ const StudentView = ({ classCode, onBack }) => {
       setError(null);
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/students', {
+        const response = await axios.get('https://point-system-app-backend-a6dd80c80b07.herokuapp.com/students', {
           params: { classCode },
           headers: { Authorization: `Bearer ${token}` }
         });
