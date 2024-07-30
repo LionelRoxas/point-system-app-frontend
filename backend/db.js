@@ -1,20 +1,15 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-// Use environment variable for MongoDB URI, fallback to local MongoDB for development
-const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://point-system-app-cluste.dih3acx.mongodb.net/';
+const dbURI = process.env.MONGODB_URI;
 
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+mongoose.connect(dbURI);
 
 const db = mongoose.connection;
-db.once('open', () => {
-  console.log('MongoDB connected');
-});
 
-db.on('error', (err) => {
-  console.error('MongoDB connection error:', err);
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('Connected to MongoDB');
 });
 
 module.exports = db;
